@@ -1,0 +1,63 @@
+html {
+    font-size: 62.5%;/*1rem = 10px*　remはルートのフォント、つまりここを参照する　*/
+}
+
+body{
+    font-size: 1.6em;/*　16px. emは親要素のフォントサイズ基準に大きさを計算　*/
+    margin: 0rem;
+}
+
+body div.default{
+    padding-top: 5rem;
+    margin-left: 1rem;
+    margin-right: 3rem;/*ようやく左の端が見える*/
+}
+
+header{
+    position: fixed;/*これやると領域が文字やオブジェクトの分しか展開されない。あと設定しないとheaderの分bodyの要素上にあがって重なるから要設定。  */
+    background-color: rgb(68, 68, 68);
+    width: 100%;
+    z-index: 999;
+}
+
+header div.global-menu {
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0rem 0.5rem 1.0rem 0.1rem gray;
+    }
+    
+
+header div.global-menu ul{
+    margin: 0rem 0rem 0rem -4rem;
+}
+
+header div.global-menu ul a{
+    color: white;
+}
+
+header div.global-menu li{/*headerのなかのglobal-menuのクラスが入ったdivの中にあるliに適用される*/
+    background-color: rgb(68, 68, 68);
+    list-style: none;
+    text-align: center;
+    width: 14rem;
+    /* border: 0.1rem solid black; */
+    margin: 0rem 0.5rem 0rem 0.5rem;
+    padding: 0.5rem;
+    float: left;
+    }
+
+header div.global-menu li:hover{
+    background-color: gray;
+}
+
+a {
+    text-decoration: none;
+}
+
+.block-container0{
+    overflow: hidden;/*はみ出てもスクロールバーが出てこない*/
+}
+
+.block0{
+    float: left;
+}
