@@ -1,6 +1,5 @@
 <html lang="ja">
 <head>
- <link rel=”shortcut icon” href">
  <link rel="stylesheet" type="text/css" href="css/style.css" />
  <link rel="stylesheet" type="text/css" href="css/home-menu.css" />
  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -8,14 +7,30 @@
  <script src="./js/bookList.js"></script>
 </head>
 
-<body onload="getData()">
+<body onload="getJSON()">
+<header>
+    <div class="global-menu">
+        <ul>
+            <li style="color: coral; background-color:rgb(241, 241, 241);">Home</li>
+            <a href="./BookChart.html"><li>Datas</li></a>
+            <a href="./BookChart.html"><li>Helps</li></a>
+	    <li style="background-color: rgb(68, 68, 68)"><form method="post" id="test"><input type="text" id="account" name="ID" value="XXX"></form></li>
+	    <li style="background-color: rgb(68, 68, 68)"><button type="button" id="button" onclick="login()">Go</button></li>
+        </ul>
+    </div>
+</header>
 
 <h5>本のリスト</h5>
 
-<div id="list">
+<input type="button" name="123" value="ぼたん" onclick="login()">
+
+<div id="test">
+aaa
 </div>
 
-<input type="button" name="123" value="ぼたん" onclick='location.href = ".."'>
+
+<div id="list">
+</div>
 
 </body>
 </html>

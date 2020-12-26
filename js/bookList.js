@@ -36,8 +36,39 @@ function getJSON() {
   };
 
   xmlHttpReq.send(null);
-}
+};
 
 function getData() {
   getJSON();
-}
+};
+
+
+function login(){
+    let test = document.getElementById("test");
+    console.log(test)
+
+    test2 = {"Key":"Value"}
+
+//    console.log(test2["Key"])
+    let res = "fax";
+    let XHR =  new XMLHttpRequest();
+    let sendData = new FormData(test);//渡せる値はformに限る
+//    sendData.append('key0','vux');
+  //  sendData.append('key1','vu');
+    //sendData.append('key2','vx');
+    console.log(sendData.get('key2'));//中身はこの関数でしか見られない
+  XHR.open('POST', "./cgi/test0.rb", true);
+  //XHR.setRequestHeader("Content-Type", "application/json")
+
+  XHR.send(sendData);
+  XHR.onreadystatechange = function() {
+    if (XHR.readyState==4) {
+	res += XHR.responseText;
+     };
+   console.log(res)
+   document.getElementById("test").innerHTML = res;
+  };
+  
+
+//   document.getElementById("test").innerHTML = test;
+};
