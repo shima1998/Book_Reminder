@@ -43,6 +43,39 @@ function getData() {
   getJSON();
 };
 
+function setUserNameToStorage() {
+    if (window.localStorage) {
+        let user = document.getElementById("userID").value;
+        localStorage.setItem("userID", user);
+    }
+    return user;
+}
+
+let userName;
+
+function getUserNameFromStorage() {
+    let name = null;
+
+    // ますはストレージから読む
+    if (window.localStorage) {
+        name = localStorage.getItem("userID");
+        if (document.getElementById("userID")) {
+            document.getElementById("userID").value = name;
+        }
+        return name;
+    }
+
+    // 登録がなければ画面からデータをとってセットする
+    if (name == null) {
+        if (document.getElementById("userID")) {
+            name = document.getElementById("userID").value;
+        }
+        localStorage.setItem("userID", name);
+    }
+
+    return name;
+}
+
 function login(){
     let userID = document.getElementById("user");    
     console.log(userID)
@@ -89,36 +122,9 @@ function login(){
     };
 };
 
-
-function changeUser(){
- let test = document.getElementById("user");
-    console.log(test)
-
-    test2 = {"Key":"Value"}
-
-//    console.log(test2["Key"])
-    let res = "fax";
-    let XHR =  new XMLHttpRequest();
-    let sendData = new FormData(test);//渡せる値はformに限る
-//    sendData.append('key0','vux');
-  //  sendData.append('key1','vu');
-    //sendData.append('key2','vx');
-    console.log(sendData.get('key2'));//中身はこの関数でしか見られない
-  XHR.open('POST', "./cgi/test0.rb", true);
-  //XHR.setRequestHeader("Content-Type", "application/json")
-
-  XHR.send(sendData);
-  XHR.onreadystatechange = function() {
-    if (XHR.readyState==4) {
-	res += XHR.responseText;
-     };
-   console.log(res)
-   document.getElementById("test").innerHTML = res;
-  };
-//   document.getElementById("test").innerHTML = test;
-};
-
 function changeUser1(){
+  let userName = setUserNameToStorage();
+  console.log(userName)
   let test = document.getElementById("user");
   console.log(test)
   let sendData = new FormData(test);
