@@ -8,29 +8,29 @@
 </head>
 
 <body onload="getJSON()">
-<header>
+  <header>
     <div class="global-menu">
-        <ul>
-            <li style="color: coral; background-color:rgb(241, 241, 241);">Home</li>
-            <a href="./BookChart.html"><li>Datas</li></a>
-            <a href="./BookChart.html"><li>Helps</li></a>
-	    <li style="background-color: rgb(68, 68, 68)"><form method="post" id="test"><input type="text" id="account" name="ID" value="XXX"></form></li>
-	    <li style="background-color: rgb(68, 68, 68)"><button type="button" id="button" onclick="login()">Go</button></li>
-        </ul>
+      <ul>
+        <li style="color: coral; background-color:rgb(241, 241, 241);">Home</li>
+        <a href="./BookChart.html"><li>Datas</li></a>
+        <a href="./BookChart.html"><li>Helps</li></a>
+	<li style="background-color: rgb(68, 68, 68)"><form method="post" id="user"><input type="text" id="userID" name="user_id" value=""></form></li>
+	<li style="background-color: rgb(68, 68, 68)"><button type="button" id="button" onclick="login()">Login</button></li>
+      </ul>
     </div>
-</header>
+  </header>
 
-<h5>本のリスト</h5>
+  <h5>本のリスト</h5>
 
-<input type="button" name="123" value="ぼたん" onclick="login()">
+  <input type="button" name="123" value="test" onclick="changeUser1()">
 
-<div id="test">
-aaa
-</div>
+  <div id="test">
+    aaa
+  </div>
 
 
-<div id="list">
-</div>
-
+  <div id="list">
+    <h2>Please write your ID ↑</h2>
+  </div>
 </body>
 </html>

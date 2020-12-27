@@ -23,9 +23,7 @@ end
 
 
 #print data.content_type
-print data.keys.to_s + "\n"
-print data.params.to_s + "\n"
+print "keys:" + data.keys.to_s + "\n"
+print "params:" + data.params.to_s + "\n"
 
-print "CanInclude?\n"
-print data["key"].to_s
 
