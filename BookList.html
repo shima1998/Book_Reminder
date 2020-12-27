@@ -7,7 +7,7 @@
  <script src="./js/bookList.js"></script>
 </head>
 
-<body onload="getUserNameFromStorage()">
+<body>
   <header>
     <div class="global-menu">
       <ul>
@@ -15,22 +15,13 @@
         <a href="./BookChart.html"><li>Datas</li></a>
         <a href="./BookChart.html"><li>Helps</li></a>
 	<li style="background-color: rgb(68, 68, 68)"><form method="post" id="user"><input type="text" id="userID" name="user_id" value=""></form></li>
-	<li style="background-color: rgb(68, 68, 68)"><button type="button" id="button" onclick="login()">Login</button></li>
+	<li style="background-color: rgb(68, 68, 68)"><button type="button" id="button" onclick="changeUser()">Login</button></li>
       </ul>
     </div>
   </header>
 
-  <h5>本のリスト</h5>
-
-  <input type="button" name="123" value="test" onclick="changeUser1()">
-
-  <div id="test">
-    aaa
-  </div>
-
-
   <div id="list">
-    <h2>Please write your ID ↑</h2>
+    <h2>Please input your ID ↑</h2>
   </div>
 </body>
 </html>
