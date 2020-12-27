@@ -1,14 +1,19 @@
+* {/*CSS全体のリセット*/
+    margin: 0;
+    padding: 0;
+}
+
 html {
     font-size: 62.5%;/*1rem = 10px*　remはルートのフォント、つまりここを参照する　*/
 }
 
 body{
     font-size: 1.6em;/*　16px. emは親要素のフォントサイズ基準に大きさを計算　*/
-    margin: 0rem;
 }
 
-body div.default{
+body div.main{
     padding-top: 5rem;
+    margin-top: 0rem;
     margin-left: 1rem;
     margin-right: 3rem;/*ようやく左の端が見える*/
 }
@@ -28,7 +33,7 @@ header div.global-menu {
     
 
 header div.global-menu ul{
-    margin: 0rem 0rem 0rem -4rem;
+    margin: 0rem;
 }
 
 header div.global-menu ul a{
@@ -61,3 +66,19 @@ a {
 .block0{
     float: left;
 }
+
+@media screen and (min-width:450px) {
+
+body{
+    font-size: 3.0em;/*　16px. emは親要素のフォントサイズ基準に大きさを計算　*/
+}
+
+} 
+
+@media screen and (min-width:450px) and (max-width:750px) {
+
+body{
+    font-size: 2.0em;/*　16px. emは親要素のフォントサイズ基準に大きさを計算　*/
+}
+
+} 
