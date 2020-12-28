@@ -12,7 +12,7 @@ body{
 }
 
 body div.main{
-    padding-top: 5rem;
+    padding-top: 8rem;
     margin-top: 0rem;
     margin-left: 1rem;
     margin-right: 3rem;/*ようやく左の端が見える*/
@@ -49,7 +49,7 @@ header div.global-menu li{/*headerのなかのglobal-menuのクラスが入っ�
     margin: 0rem 0.5rem 0rem 0.5rem;
     padding: 0.5rem;
     float: left;
-    }
+}
 
 header div.global-menu li:hover{
     background-color: gray;
@@ -67,18 +67,44 @@ a {
     float: left;
 }
 
-@media screen and (min-width:450px) {
+@media screen and (max-width:350px) {
 
-body{
-    font-size: 3.0em;/*　16px. emは親要素のフォントサイズ基準に大きさを計算　*/
+header div.global-menu li{/*headerのなかのglobal-menuのクラスが入ったdivの中にあるliに適用される*/
+    background-color: rgb(68, 68, 68);
+    list-style: none;
+    font-size: 1.0rem;
+    text-align: center;
+    width: 10rem;
+    /* border: 0.1rem solid black; */
+    margin: 0rem 0.5rem 0rem 0.5rem;
+    padding: 0.5rem;
+    float: left;
+}
+
+}
+
+@media screen and (max-width:450px) {
+
+header div.global-menu li{/*headerのなかのglobal-menuのクラスが入ったdivの中にあるliに適用される*/
+    background-color: rgb(68, 68, 68);
+    list-style: none;
+    font-size: 1.0rem
+    text-align: center;
+    width: 10rem;
+    /* border: 0.1rem solid black; */
+    margin: 0rem 0.5rem 0rem 0.5rem;
+    padding: 0.5rem;
+    float: left;
 }
 
 } 
 
-@media screen and (min-width:450px) and (max-width:750px) {
+/*
+@media screen and (min-width:451px) and (max-width:850px) {
 
 body{
-    font-size: 2.0em;/*　16px. emは親要素のフォントサイズ基準に大きさを計算　*/
+    font-size: 1.6em;
 }
 
-} 
+}
+*/

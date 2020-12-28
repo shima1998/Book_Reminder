@@ -13,8 +13,8 @@ data=CGI.new()
 client = Mysql2::Client.new(host: $_dbPath["host"], username: $_dbPath["username"], password: $_dbPath["password"], :encoding => 'utf8', database: $_dbPath["database"][0])
 
 client.query("set @index=0;")
-client.query("update test_book set ID=(@index := @index + 1);")
-productResults = client.query("SELECT * FROM test_book;")
+client.query("update test_book1 set ID=(@index := @index + 1);")
+productResults = client.query("SELECT * FROM test_book1;")
 
 print <<-EOS
 Content-type: text/html\n\n

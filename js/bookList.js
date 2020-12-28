@@ -7,15 +7,17 @@ window.addEventListener("load", function(){
     changeUser();
 }, false);
 
+let userName;
+
 function setUserNameToStorage() {
     if (window.localStorage) {
         let user = document.getElementById("userID").value;
         localStorage.setItem("userID", user);
     }
+    userName = getUserNameFromStorage();
     return user;
 }
 
-let userName;
 
 function getUserNameFromStorage() {
     let name = null;
@@ -26,6 +28,7 @@ function getUserNameFromStorage() {
         if (document.getElementById("userID")) {
             document.getElementById("userID").value = name;
         }
+	userName = name;
         return name;
     }
 
@@ -35,14 +38,15 @@ function getUserNameFromStorage() {
             name = document.getElementById("userID").value;
         }
         localStorage.setItem("userID", name);
+	userName = name;
     }
 
     return name;
 }
 
 function changeUser(){
-  let userName = setUserNameToStorage();
-  console.log(userName)
+  let user = setUserNameToStorage();
+  console.log(user)
   let test = document.getElementById("user");
   console.log(test)
   let sendData = new FormData(test);
@@ -60,9 +64,10 @@ function changeUser(){
       for (i = 0; i < lists.length; i++) {
 	let list;
         list = lists[i];
-        html += '<div id="bookList' + String(i+1) + '" class="menu-box0">' + "\n";
+        html += '<div id="bookList" class="menu-box0">' + "\n";
         html += '<form action="./BookInfo.rb" method="post">'
-        html += '<input type="submit" class="submit-book" name="book_list" alt="' + list.name + '" value="' + String(i+1) + '">';
+        html += '<input type="submit" class="submit-book" name="book_list" alt="' + list.name + '" value="' + list.ID + '">';
+	html += '<input type="hidden" name="book_user" value="' + userName +'">'
         html += '<div class="relative-txt">' + "\n";
         html += '<h2>' + list.name + '</h2>' + "\n";
         switch (list.status) {
@@ -78,6 +83,7 @@ function changeUser(){
         html += '</form>';
         html += '</div>';
       }
+	console.log(html)
 	document.getElementById("list").innerHTML = html;
      };
   };

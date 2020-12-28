@@ -34,7 +34,7 @@ EOS
 print "[\n"
 productResults.each do |productResult|
   print "{\n"
-  print "\"ID\": " + "\"" + productResult["ID"].to_s + checkUser.to_s  + "\",\n"
+  print "\"ID\": " + "\"" + productResult["ID"].to_s + "\",\n"
   print "\"name\": " + "\"" + productResult["Name"].to_s + "\",\n"
   print "\"status\": " + "\"" + productResult["Status"].to_s + "\",\n"
   print "\"reviewName\": " + "\"" + productResult["ReviewName"].to_s + "\",\n"
