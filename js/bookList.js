@@ -63,6 +63,8 @@ function changeUser(){
 	    lists.pop();
 	    //lists = listSave.pop();
 	    console.log(lists);
+	    let clear = 0;
+	    let sum = 0;
 	    let i;
 	    let html = "";
 	    let stat;
@@ -81,17 +83,20 @@ function changeUser(){
 		switch (list.status) {
 		case "0": stat = "未着手"; break;
 		case "1": stat = "読書中"; break;
-		case "2": stat = "読了"; break;
-		case "3": stat = "部分読了"; break;
+		case "2": stat = "読了"; clear++; break;
+		case "3": stat = "部分読了"; clear++;break;
 		default: stat = "undefined"; break;
 		};
 		html += '<p>状態: ' + stat + '</p>';
 		html += '<p>' + list.reviewName + ':' + list.reviewPoint + '</p>';
 		html += '</div>';
 		html += '</div>';
+		sum++;
 	    };
 	    console.log(html)
 	    document.getElementById("list").innerHTML = html;
+	    document.getElementById("clear").innerHTML = clear;
+	    document.getElementById("sum").innerHTML = sum;
 	    /*for(i = 1; i < lists.length + 1; i++) {
 	      let bookId = document.getElementById("bookList" + String(i+1));
 	      bookId.addEventListener("click", function(){
