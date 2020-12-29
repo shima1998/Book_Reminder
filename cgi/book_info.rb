@@ -24,8 +24,7 @@ Content-type: text/html\n\n
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
     <title>BookList</title>
     <link rel="stylesheet" type="text/css" href="./css/style.css">
     <link rel="stylesheet" type="text/css" href="./css/home-menu.css">
@@ -33,19 +32,16 @@ Content-type: text/html\n\n
 <body>
 
 <header>
-     <div class="global-menu">
-      <ul>
-        <a href="./BookList.html"><li>Home</li></a>
-        <a href="./BookChart.html"><li>Datas</li></a>
-        <a href="./BookChart.html"><li>Helps</li></a>
-	<li style="background-color: rgb(68, 68, 68)"><form method="post" id="user"><input type="text" id="userID" name="user_id" value=""></form></li>
-	<li style="background-color: rgb(68, 68, 68)"><button type="button" id="button" onclick="changeUser()">Login</button></li>
-      </ul>
+    <div class="global-menu">
+        <ul>
+            <li style="color: coral; background-color:rgb(241, 241, 241);">Home</li>
+            <a href="./BookChart.html"><li>Datas</li></a>
+            <a href="./BookChart.html"><li>Helps</li></a>
+        </ul>
     </div>
 </header>
 
-<div id="bookInfo" class="main">
-<a href="./BookList.html"><button>戻る</button></a>
+<div id="bookInfo" class="default">
 EOS
 
 puts "#{bookIndex}"
@@ -78,7 +74,6 @@ end
 print <<-EOS
 
 <form action="./ChangeInfo.rb" method="post">
-<input type="hidden" name="book_user" value="#{bookId}">
 <button type="submit" class="submit-book" name="book_value" alt="編集する" value="#{bookIndex}">
 編集する
 </button>

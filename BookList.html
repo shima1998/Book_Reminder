@@ -1,29 +1,41 @@
 <html lang="ja">
-<head>
- <link rel="stylesheet" type="text/css" href="css/style.css" />
- <link rel="stylesheet" type="text/css" href="css/home-menu.css" media="screen"/>
- <meta name="viewport" content="width=device-width,initial-scale=1">
- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <title>Book List チェック テスト</title>
- <script src="./js/bookList.js"></script>
-</head>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/home-menu.css" media="screen"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Book List チェック テスト</title>
+  </head>
 
-<body>
-  <header>
-    <div class="global-menu">
-      <ul>
-        <li style="color: coral; background-color:rgb(241, 241, 241);">Home</li>
-        <a href="./BookChart.html"><li>Datas</li></a>
-        <a href="./BookChart.html"><li>Helps</li></a>
-	<li style="background-color: rgb(68, 68, 68)"><form method="post" id="user"><input type="text" id="userID" name="user_id" value=""></form></li>
-	<li style="background-color: rgb(68, 68, 68)"><button type="button" id="button" onclick="changeUser()">Login</button></li>
-      </ul>
+  <body>
+    <header>
+      <div class="global-menu">
+	<ul>
+          <li style="color: coral; background-color:rgb(241, 241, 241);">Home</li>
+          <a href="./BookChart.html"><li>Datas</li></a>
+          <a href="./BookChart.html"><li>Helps</li></a>
+	  <li style="background-color: rgb(68, 68, 68)"><form method="post" id="user"><input type="text" id="userID" name="user_id" value=""></form></li>
+	  <li style="background-color: rgb(68, 68, 68)"><button type="button" id="button" onclick="changeUser()">Login</button></li>
+	</ul>
+      </div>
+    </header>
+
+    <div class="main">
+      
+      <div id="bookSave">
+	↓本の追加
+      </div>
+      <br>
+      <br>
+      <div>
+	<button type="button" id="saveButton" onclick="save()">書籍追加</button>
+      </div>
+
+      <div id="list">
+	<h2>Please input your ID ↑</h2>
+      </div>
+
     </div>
-  </header>
-<div class="main">
-  <div id="list">
-    <h2>Please input your ID ↑</h2>
-  </div>
-</div>
-</body>
+    <script type="text/javascript" src="./js/bookList.js"></script>
+  </body>
 </html>
