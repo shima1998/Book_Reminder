@@ -1,6 +1,6 @@
 // 配列に関して、基本はドット記法を使用するが、keyが数字、または変数だった場合はブラケットを使用すること。
 let ctx0 = document.getElementById("bookChart0").getContext('2d');
-let ctx1 = document.getElementById("bookChart1").getContext('2d');
+//let ctx1 = document.getElementById("bookChart1").getContext('2d');
 // let ctx2 = document.getElementById("bookChart2").getContext('2d');
 
 let bookChart0 = new Chart(ctx0, {
@@ -30,7 +30,7 @@ let bookChart0 = new Chart(ctx0, {
     }
 });
 
-
+/*
 let bookChart1 = new Chart(ctx1, {//円グラフ
     type: 'doughnut',
     data: {
@@ -50,14 +50,14 @@ let bookChart1 = new Chart(ctx1, {//円グラフ
         responsive: true,
         maintainAspectRatio: false
     }//使わないならない方がいい
-});
+});*/
 
 function insertArrayForChart(chart, arrayValues, keyLabels, keyValues, bgColor, bdColor){
     //for "Chart.js"
     //DBから送られてくるJSON要素の最後は"{}"という未定義の要素の想定である。
     //グラフの色は、現状最初に引数で設定した1色で固定になります。
     //頻繁に間に挟まっているコメントアウトされたconsole.logは、挙動確認用に残してあります。
-
+    
     let accumulateLabels = [];//最初にすべてのラベル名を格納するための配列
 
     // arrayValues.forEach(element => {
@@ -128,8 +128,19 @@ function refreshChart(chart){
     chart.update();
 };
 
-function showChart(){
+function averageChart(chart){
+    let lgh = chart.data.datasets[0].data.length;
+    let count;
+    let sum = 0;
+    for(count = 0; count < lgh; count++){
+	sum+=chart.data.datasets[0].data[count];
+    };
+    let avg = sum / lgh;
+    return avg;
+}
+function showChart0(){
     setUserNameToStorage();
+    refreshChart(bookChart0)
     let userID = document.getElementById("user");
     let sendData = new FormData(userID);
     let XHR = new XMLHttpRequest();
@@ -148,15 +159,15 @@ function showChart(){
 
             insertArrayForChart(bookChart0, progressData, 'date', 'pages', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
             // insertArrayForChart(bookChart1, progressData, 'date', 'pages', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
-            
-
+            document.getElementById("bookAverage").innerHTML =  averageChart(bookChart0);
+	    
 	};
     };//最初は素通り　帰ってくるタイミングはこちらで決められない
 };
 
 window.addEventListener("load",function(){
     getUserNameFromStorage();
-    showChart();
+    showChart0();
 }, false); 
 
 let userName;

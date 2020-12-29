@@ -17,7 +17,7 @@
           <a href="./BookChart.html"><li>Datas</li></a>
           <a href="./BookChart.html"><li>Helps</li></a>
 	  <li style="background-color: rgb(68, 68, 68)"><form method="post" id="user"><input type="text" id="userID" name="user_id" value=""></form></li>
-	  <li style="background-color: rgb(68, 68, 68)"><button type="button" id="button" onclick="">Login</button></li>
+	  <li style="background-color: rgb(68, 68, 68)"><button type="button" id="button" onclick="showChart0();">Login</button></li>
 	</ul>
       </div>
     </header>
@@ -30,18 +30,13 @@
       <div class="canvas-container0">
         <canvas id="bookChart0" class="bar"></canvas>
       </div>
-      <div　class="block-container0">
-        <div class="canvas-container1 block0">
-          <canvas id="bookChart1" class="block0 doughnut"></canvas>
-        </div>
-        <div class="block0">
-          <p>積読解消量:<span></span>/<span></span></p>
-          <p>1日平均:<span></span>/<span></span></p>
-          <!-- 解消数/登録数 -->
-        </div>
-    </div>
-</div>
+      
 
-<script text="text/javascript" src="js/bookChart.js"></script>
-</body>
+      <div class="block0">
+        <p>1日平均:<span id="bookAverage"></span>ページ</p>
+        <!-- 解消数/登録数 -->
+      </div>
+    </div>
+    <script text="text/javascript" src="js/bookChart.js"></script>
+  </body>
 </html>
