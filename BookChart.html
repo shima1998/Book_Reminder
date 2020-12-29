@@ -24,8 +24,12 @@
     <!-- JSはid全部取得できないと最悪真っ白になるっぽい -->
     <div class="main">
       <div>
-	<button onclick="refreshChart(bookChart0);">削除</button>
+	<p>ページ追加</p>
+	<form method="post" id="addPages">
+	</form>
+	<button onclick="addPages();">追加</button>
       </div>
+      <br>
       <h3>今までの読書量</h3>
       <div class="canvas-container0">
         <canvas id="bookChart0" class="bar"></canvas>

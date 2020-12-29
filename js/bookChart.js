@@ -31,26 +31,26 @@ let bookChart0 = new Chart(ctx0, {
 });
 
 /*
-let bookChart1 = new Chart(ctx1, {//円グラフ
-    type: 'doughnut',
-    data: {
-        labels: ["a","b","c"],
-        datasets: [{
-            label: 'ページ数',
-            data: [10,10,10,20],
-            backgroundColor: [
-                'rgb(255, 0, 0)'
-            ],
-            borderColor: [
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false
-    }//使わないならない方がいい
-});*/
+  let bookChart1 = new Chart(ctx1, {//円グラフ
+  type: 'doughnut',
+  data: {
+  labels: ["a","b","c"],
+  datasets: [{
+  label: 'ページ数',
+  data: [10,10,10,20],
+  backgroundColor: [
+  'rgb(255, 0, 0)'
+  ],
+  borderColor: [
+  ],
+  borderWidth: 1
+  }]
+  },
+  options: {
+  responsive: true,
+  maintainAspectRatio: false
+  }//使わないならない方がいい
+  });*/
 
 function insertArrayForChart(chart, arrayValues, keyLabels, keyValues, bgColor, bdColor){
     //for "Chart.js"
@@ -168,7 +168,33 @@ function showChart0(){
 window.addEventListener("load",function(){
     getUserNameFromStorage();
     showChart0();
+    showAddPages();
 }, false); 
+
+function showAddPages(){
+    let html = "";
+    let user = getUserNameFromStorage();
+
+    html+=' <input type="number"name="pages" value="0" min="0" max="999">';
+    html+='<input type="text" name="book_user" value="' + user  + '" style="visibility: hidden;" readonly>';
+
+    document.getElementById("addPages").innerHTML = html;
+}
+
+function addPages(){
+    let ID = document.getElementById("addPages");
+    let sendData = new FormData(ID);
+    let XHR = new XMLHttpRequest();
+
+    XHR.open("post", "./cgi/add_pages.rb", true);//タダの設定　
+    XHR.send(sendData);
+    XHR.onreadystatechange = function(){
+	if(XHR.readyState == 4){
+	    refreshChart(bookChart0);
+	    showChart0();
+	};
+    };
+};
 
 let userName;
 
@@ -204,5 +230,30 @@ function getUserNameFromStorage() {
 	userName = name;
     }
 
+    return name;
+};
+
+function getUserNameFromStorage1() {
+    let name = null;
+
+    // ますはストレージから読む
+    if (window.localStorage) {
+        name = localStorage.getItem("userID");
+        if (document.getElementById("userIdForAddPages")) {
+            document.getElementById("userIdForAddPages").value = name;
+        }
+	userName = name;
+        return name;
+    }
+
+    // 登録がなければ画面からデータをとってセットする
+    if (name == null) {
+        if (document.getElementById("userID")) {
+            name = document.getElementById("userID").value;
+        }
+        localStorage.setItem("userID", name);
+	userName = name;
+    }
+    console.log(name);
     return name;
 };
