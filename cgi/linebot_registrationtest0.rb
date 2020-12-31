@@ -26,20 +26,6 @@ canGetInclude = "true"
 
 toUserResponse = "Undefined"
 
-subject = regiCode.delete("登録:")#!をつけると、ここでもうもとの文字列から消されてる
-
-lineDBs = client.query("select * from LINEID_test;")
-
-lineDBs.each do |lineDB|#重複がないか確認して重複したらFalse
-  if lineDB["ID"] == userID || lineDB["USER"] == subject then
-    canGetInclude = "false"
-  end
-end
-
-if regiCode.include?("登録:") && canGetInclude == "true" then #上記のeach分で重複がなければ登録ができるはずだ
-  client.query("insert into LINEID_test values(\"#{subject}\",\"#{userID}\");")
-end
-
 channelAccessToken = $_CAT
 
 targetUri = "https://api.line.me/v2/bot/message/reply"
@@ -53,6 +39,54 @@ request = Net::HTTP::Post.new(uri)
 request["Content-Type"] = "application/json"
 request["Authorization"] = "Bearer #{channelAccessToken}"
 
+lineDBs = client.query("select * from LINEID_test;")
+
+if regiCode.include?("登録:") then 
+  subject = regiCode.delete("登録:")
+  
+  lineDBs.each do |lineDB|#重複がないか確認して重複したらFalse
+    if lineDB["ID"] == userID || lineDB["USER"] == subject then
+      canGetInclude = "false"
+    end
+  end
+
+  if canGetInclude == "true" then
+    client.query("insert into LINEID_test values(\"#{subject}\",\"#{userID}\");")
+    toUserResponse = "You can regist ID!"
+  elsif canGetInclude == "false" then
+    toUserResponse = "You can't regist ID..."
+  else
+    toUserResponse = "Error"
+  end
+
+
+  reqBody = {"replyToken"=>"#{replyToken}","messages"=>[{"type"=>"text","text"=>toUserResponse.to_s}]}
+
+  request.body = reqBody.to_json
+  res = http.request(request)
+
+elsif regiCode.include?("書籍:") then
+  subject = regiCode.delete("書籍:")
+  bookLists = client.query('select * from test_book1;')
+=begin
+  bookLists.each do |bookList|
+    if bookList["Name"] == subject then
+      bookName = bookList["Name"].to_s
+      status = bookList["Status"].to_s
+      bookRevName = bookList["ReviewName"].to_s
+      bookRevPoint = bookList["ReviewPoint"].to_s
+  end
+=end
+  reqBody = {"replyToken"=>"#{replyToken}","messages"=>[{"type"=>"text","text"=>"書籍"}]}
+  request.body = reqBody.to_json
+  res = http.request(request)
+else
+  reqBody = {"replyToken"=>"#{replyToken}","messages"=>[{"type"=>"text","text"=>"本は読んでますか?"},{"type"=>"text","text"=>"https://mimalab.c.fun.ac.jp/b1017216/Book_Reminder/BookList.html"}]}
+  request.body = reqBody.to_json
+  res = http.request(request)
+end
+
+=begin
 if regiCode.include?("登録:") then#何が起きたのか返したい
   if canGetInclude == "true" then
     toUserResponse = "You can regist ID!"
@@ -64,17 +98,14 @@ if regiCode.include?("登録:") then#何が起きたのか返したい
 else 
   toUserResponse = "Please, registration code."
 end
+=end
 
-
-reqBody = {"replyToken"=>"#{replyToken}","messages"=>[{"type"=>"text","text"=>toUserResponse.to_s}]}
-
-request.body = reqBody.to_json
-res = http.request(request)
-
+=begin
 f=File.open("test_stdin.txt", "w")
-    f.write("bool:" + canGetInclude + "\n")
-    f.write("UserID:" + userID.to_s + "\n")
-    f.write("Code:" + regiCode.to_s + "\n")
+f.write("bool:" + canGetInclude + "\n")
+f.write("UserID:" + userID.to_s + "\n")
+f.write("Code:" + regiCode.to_s + "\n")
 #    f.write("DBs:" + lineDBs[3]["USER"].to_s + "\n")
-    f.write("subject:" + subject.to_s + "\n")
+f.write("subject:" + subject.to_s + "\n")
 f.close
+=end
