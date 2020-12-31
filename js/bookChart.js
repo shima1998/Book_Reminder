@@ -138,63 +138,7 @@ function averageChart(chart){
     let avg = sum / lgh;
     return avg;
 }
-function showChart0(){
-    setUserNameToStorage();
-    refreshChart(bookChart0)
-    let userID = document.getElementById("user");
-    let sendData = new FormData(userID);
-    let XHR = new XMLHttpRequest();
 
-    XHR.open("post", "./cgi/get_progress.rb", true);//タダの設定　
-    XHR.send(sendData);
-    XHR.onreadystatechange = function(){//データが帰ってきたらどうするか
-	if(XHR.readyState == 4){
-            // GETした結果を表示する?
-            let strXml0 = XHR.responseText;
-            let progressData = JSON.parse(strXml0);//date,pages String型で格納されている
-
-            // document.getElementById("test1").innerHTML = progressData[0].date;
-
-            // document.getElementById("test0").innerHTML = progressData[0].pages;
-
-            insertArrayForChart(bookChart0, progressData, 'date', 'pages', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
-            // insertArrayForChart(bookChart1, progressData, 'date', 'pages', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
-            document.getElementById("bookAverage").innerHTML =  averageChart(bookChart0);
-	    
-	};
-    };//最初は素通り　帰ってくるタイミングはこちらで決められない
-};
-
-window.addEventListener("load",function(){
-    getUserNameFromStorage();
-    showChart0();
-    showAddPages();
-}, false); 
-
-function showAddPages(){
-    let html = "";
-    let user = getUserNameFromStorage();
-
-    html+=' <input type="number"name="pages" value="0" min="0" max="999">';
-    html+='<input type="text" name="book_user" value="' + user  + '" style="visibility: hidden;" readonly>';
-
-    document.getElementById("addPages").innerHTML = html;
-}
-
-function addPages(){
-    let ID = document.getElementById("addPages");
-    let sendData = new FormData(ID);
-    let XHR = new XMLHttpRequest();
-
-    XHR.open("post", "./cgi/add_pages.rb", true);//タダの設定　
-    XHR.send(sendData);
-    XHR.onreadystatechange = function(){
-	if(XHR.readyState == 4){
-	    refreshChart(bookChart0);
-	    showChart0();
-	};
-    };
-};
 
 let userName;
 
@@ -256,4 +200,97 @@ function getUserNameFromStorage1() {
     }
     console.log(name);
     return name;
+};
+
+
+function showChart0(){//0とLoadで分けているのは、ログインするたびにつなぐデータベースを分ける際に不都合があるからである。
+    setUserNameToStorage()
+    let user = getUserNameFromStorage();
+    refreshChart(bookChart0);
+console.log(user)
+    console.log(document.getElementById("addID").value)
+    document.getElementById("addID").value = String(user);
+console.log(document.getElementById("addID").value)
+    let userData = document.getElementById("user");
+    let sendData = new FormData(userData);
+    let XHR = new XMLHttpRequest();
+
+    XHR.open("post", "./cgi/get_progress.rb", true);//タダの設定　
+    XHR.send(sendData);
+    XHR.onreadystatechange = function(){//データが帰ってきたらどうするか
+	if(XHR.readyState == 4){
+            // GETした結果を表示する?
+            let strXml0 = XHR.responseText;
+            let progressData = JSON.parse(strXml0);//date,pages String型で格納されている
+
+            // document.getElementById("test1").innerHTML = progressData[0].date;
+
+            // document.getElementById("test0").innerHTML = progressData[0].pages;
+
+            insertArrayForChart(bookChart0, progressData, 'date', 'pages', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
+            // insertArrayForChart(bookChart1, progressData, 'date', 'pages', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
+            document.getElementById("bookAverage").innerHTML =  averageChart(bookChart0);
+	    
+	};
+    };//最初は素通り　帰ってくるタイミングはこちらで決められない
+};
+
+function showChartLoad(){
+    setUserNameToStorage()
+    let user = getUserNameFromStorage();
+    console.log(user);
+    refreshChart(bookChart0)
+    let userData = document.getElementById("user");
+    let sendData = new FormData(userData);
+    let XHR = new XMLHttpRequest();
+
+    XHR.open("post", "./cgi/get_progress.rb", true);//タダの設定　
+    XHR.send(sendData);
+    XHR.onreadystatechange = function(){//データが帰ってきたらどうするか
+	if(XHR.readyState == 4){
+            // GETした結果を表示する?
+            let strXml0 = XHR.responseText;
+            let progressData = JSON.parse(strXml0);//date,pages String型で格納されている
+
+            // document.getElementById("test1").innerHTML = progressData[0].date;
+
+            // document.getElementById("test0").innerHTML = progressData[0].pages;
+
+            insertArrayForChart(bookChart0, progressData, 'date', 'pages', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
+            // insertArrayForChart(bookChart1, progressData, 'date', 'pages', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
+            document.getElementById("bookAverage").innerHTML =  averageChart(bookChart0);
+	    
+	};
+    };//最初は素通り　帰ってくるタイミングはこちらで決められない
+};
+
+window.addEventListener("load",function(){
+    getUserNameFromStorage();
+    showChartLoad();
+    showAddPages();
+}, false); 
+
+function showAddPages(){
+    let html = "";
+    let user = getUserNameFromStorage();
+
+    html+=' <input type="number"name="pages" value="0" min="0" max="999">';
+    html+='<input type="text" id="addID" name="book_user" value="' + user  + '" style="visibility: hidden;" readonly>';
+
+    document.getElementById("addPages").innerHTML = html;
+}
+
+function addPages(){
+    let ID = document.getElementById("addPages");
+    let sendData = new FormData(ID);
+    let XHR = new XMLHttpRequest();
+
+    XHR.open("post", "./cgi/add_pages.rb", true);//タダの設定　
+    XHR.send(sendData);
+    XHR.onreadystatechange = function(){
+	if(XHR.readyState == 4){
+	    refreshChart(bookChart0);
+	    showChart0();
+	};
+    };
 };

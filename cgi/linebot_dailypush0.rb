@@ -3,6 +3,7 @@
 
 require "cgi"
 require "uri"
+require 'cgi'
 require "json"
 require "net/http"
 require "../storage"
@@ -15,24 +16,9 @@ require 'mysql2'
 data = CGI.new()
 bookUser = data['book_user']
 =end
+today = Date.today
 
 client = Mysql2::Client.new(host: $_dbPath["host"], username: $_dbPath["username"], password: $_dbPath["password"], :encoding => 'utf8', database: $_dbPath["database"][0])
-
-productResults = client.query('select * from LINEID_test;')
-
-
-productResults.each do |productResult|
-  print productResult["USER"].to_s + "\n"
-  print productResult["ID"].to_s + "\n"
-
-end
-
-#認証用
-print <<-EOF
-Content-type: text/html\n\n
-
-linebot
-EOF
 
 channelAccessToken = $_CAT
 
@@ -46,6 +32,39 @@ http.use_ssl = true #HTTPS 使う場合は trueを毎回設定
 request = Net::HTTP::Post.new(uri)
 request["Content-Type"] = "application/json"
 request["Authorization"] = "Bearer #{channelAccessToken}"
+
+
+productResults = client.query('select * from LINEID_test;')
+
+productResults.each do |productResult|
+  userName = productResult["USER"].to_s
+  userID = productResult["ID"].to_s
+
+  todayPages = client.query("select Pages from pages_book where USER=\"#{userName}\"&&Date=\"#{today}\";")
+  todayPagesSum = 0
+  
+  todayPages.each do |todayPage|
+    todayPagesSum+=todayPage["Pages"]
+  end
+
+  if todayPagesSum==0 then
+    reqBody = {"to"=>"#{userID}","messages"=>[{"type"=>"text","text"=>"今日はまだ本を読んでいないみたいです。\n１ページだけでも読んでみませんか?"}]}
+    request.body = reqBody.to_json
+    res = http.request(request)
+  else
+    reqBody = {"to"=>"#{userID}","messages"=>[{"type"=>"text","text"=>"今日も順調に本を読んでいますね!\nこの調子で読んでいきましょう!"}]}
+    request.body = reqBody.to_json
+    res = http.request(request)
+  end
+end
+
+#認証用
+print <<-EOF
+Content-type: text/html\n\n
+
+linebot
+EOF
+
 
 usrID = ""
 

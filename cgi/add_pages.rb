@@ -54,9 +54,6 @@ request = Net::HTTP::Post.new(uri)
 request["Content-Type"] = "application/json"
 request["Authorization"] = "Bearer #{channelAccessToken}"
 
-#userDB = client.query("select ID from LINEID_test where USER=\"#{userId}\"")
-#userToken = userDB["ID"].to_s
-
 reqBody = {"to"=>"#{userToken}","messages"=>[{"type"=>"text","text"=>"#{pages}ページ読んだんですね!\nお疲れ様です!"}]}
 
 request.body = reqBody.to_json

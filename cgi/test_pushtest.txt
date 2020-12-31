@@ -1,2 +1,12 @@
 ChannelAccessToken:oJtrpeBt4BWbk8M+G115espHDH9cwBwUXMeGum/JOraVO4CFIzj01imySz51djM7nF9pv/iYUWzENZpU8bNztf0fPffWWASxAlaD8AukfmYDJr49t5oJryDL1LjijOpoTzLdA7saPfupF6eeJqmD9wdB04t89/1O/w1cDnyilFU=
-UserToken:Uaca12eb2b8f246c52fbc88adbaca9992
+targetURI:https://api.line.me/v2/bot/message/push
+URIHost:api.line.me
+UserID: 
+HashToJson: {"to":"","messages":[{"type":"text","text":"あ"}]}
+Content-Type: application/json
+Authorization: Bearer oJtrpeBt4BWbk8M+G115espHDH9cwBwUXMeGum/JOraVO4CFIzj01imySz51djM7nF9pv/iYUWzENZpU8bNztf0fPffWWASxAlaD8AukfmYDJr49t5oJryDL1LjijOpoTzLdA7saPfupF6eeJqmD9wdB04t89/1O/w1cDnyilFU=
+reqBody: {"to":"","messages":[{"type":"text","text":"あ"}]}
+resCode: 400
+resBody: {"message":"The request body has 1 error(s)","details":[{"message":"May not be empty","property":"to"}]}
+resMsg: Bad Request
+resEntity: {"message":"The request body has 1 error(s)","details":[{"message":"May not be empty","property":"to"}]}
