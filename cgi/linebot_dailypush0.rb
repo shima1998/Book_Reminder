@@ -6,12 +6,26 @@ require "uri"
 require "json"
 require "net/http"
 require "../storage"
+require 'mysql2'
 
 # Only receive POST_Data
 # I want to receive POST_Data from CGI, but I couldn't get String. I get string "#<CGI:~~~~~>" from CGI only.
 
+=begin
 data = CGI.new()
 bookUser = data['book_user']
+=end
+
+client = Mysql2::Client.new(host: $_dbPath["host"], username: $_dbPath["username"], password: $_dbPath["password"], :encoding => 'utf8', database: $_dbPath["database"][0])
+
+productResults = client.query('select * from LINEID_test;')
+
+
+productResults.each do |productResult|
+  print productResult["USER"].to_s + "\n"
+  print productResult["ID"].to_s + "\n"
+
+end
 
 #認証用
 print <<-EOF
@@ -19,11 +33,6 @@ Content-type: text/html\n\n
 
 linebot
 EOF
-
-#data = CGI.new()
-#dValue = data.keys#LINEAPIで使うJSONが格納されてる
-#dJson = JSON.parse(dValue[0])
-#replyToken = dJson['events'][0]['replyToken']
 
 channelAccessToken = $_CAT
 
@@ -64,3 +73,4 @@ f=File.open("test_pushtest.txt", "w")
     f.write("resEntity: " + res.entity.to_s + "\n")
     f.write("resValue: " + res.value.to_s + "\n")
 f.close
+
