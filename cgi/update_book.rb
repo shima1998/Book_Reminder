@@ -3,7 +3,12 @@
 
 require 'mysql2'
 require 'cgi'
+require 'date'
+require "uri"
+require "json"
+require "net/http"
 require '../storage'
+
 
 # 取得した値を使い、本の詳細情報を変更するＣＧＩ
 
@@ -25,6 +30,31 @@ client.query("update test_book1 set ID=(@index := @index + 1) where USER='#{book
 client.query("update test_book1 set Name=\"#{name}\", Status=#{status}, ReviewName=\"#{reviewName}\", ReviewPoint=#{reviewPoint}, Impressions=\"#{impressions}\" where ID=#{bookIndex} AND USER='#{bookId}';")
 productResults = client.query("SELECT * FROM test_book1 where USER=\"#{bookId}\";")
 
+channelAccessToken = $_CAT
+
+targetUri = "https://api.line.me/v2/bot/message/push"
+
+uri = URI.parse(targetUri)#OK
+
+http = Net::HTTP.new(uri.host, uri.port)#
+http.use_ssl = true #HTTPS 使う場合は trueを毎回設定
+
+request = Net::HTTP::Post.new(uri)
+request["Content-Type"] = "application/json"
+request["Authorization"] = "Bearer #{channelAccessToken}"
+
+userDB = client.query("select ID from LINEID_test where USER=\"#{bookId}\"")
+userToken = ""
+
+userDB.each do |userD|
+   userToken = userD["ID"].to_s
+end
+
+if status == "2" || status == "3" then
+  reqBody = {"to"=>"#{userToken}","messages"=>[{"type"=>"text","text"=>"積読が解消されましたね!\nおめでとうございます!"}]}
+  request.body = reqBody.to_json
+  res = http.request(request)
+end
 
 print <<-EOS
 Content-type: text/html\n\n
@@ -34,8 +64,8 @@ Content-type: text/html\n\n
 <head>
          <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <link rel="stylesheet" type="text/css" href="css/style.css" />
- <link rel="stylesheet" type="text/css" href="css/home-menu.css" media="screen"/>
+ <link rel="stylesheet" type="text/css" href="../css/style.css" />
+ <link rel="stylesheet" type="text/css" href="../css/home-menu.css" media="screen"/>
     <title>Update</title>
 </head>
 <body>
@@ -43,9 +73,9 @@ Content-type: text/html\n\n
 <header>
 <div class="global-menu">
       <ul>
-        <a href="./BookList.html"><li>Home</li></a>
-        <a href="./BookChart.html"><li>Datas</li></a>
-        <a href="./BookChart.html"><li>Helps</li></a>
+        <a href="../BookList.html"><li>Home</li></a>
+        <a href="../BookChart.html"><li>Data</li></a>
+        <a href="../BookChart.html"><li>Helps</li></a>
 	<li style="background-color: rgb(68, 68, 68)"><form method="post" id="user"><input type="text" id="userID" name="user_id" value=""></form></li>
 	<li style="background-color: rgb(68, 68, 68)"><button type="button" id="button" onclick="changeUser()">Login</button></li>
       </ul>
@@ -55,7 +85,7 @@ Content-type: text/html\n\n
 EOS
 
 
-=begin
+
 productResults.each do |productResult|
    if productResult["ID"].to_s=="#{bookIndex}" then
         print "<h2>完了</h2>"
@@ -81,7 +111,7 @@ productResults.each do |productResult|
        EOS
    end
 end
-=end
+
 print <<-EOS
 </div>
 <br>

@@ -36,7 +36,7 @@ Content-type: text/html\n\n
      <div class="global-menu">
       <ul>
         <a href="./BookList.html"><li>Home</li></a>
-        <a href="./BookChart.html"><li>Datas</li></a>
+        <a href="./BookChart.html"><li>Data</li></a>
         <a href="./BookChart.html"><li>Helps</li></a>
 	<li style="background-color: rgb(68, 68, 68)"><form method="post" id="user"><input type="text" id="userID" name="user_id" value=""></form></li>
 	<li style="background-color: rgb(68, 68, 68)"><button type="button" id="button" onclick="changeUser()">Login</button></li>

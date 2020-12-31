@@ -37,7 +37,7 @@ Content-type: text/html\n\n
    <div class="global-menu">
       <ul>
         <a href="./BookList.html"><li>Home</li></a>
-        <a href="./BookChart.html"><li>Datas</li></a>
+        <a href="./BookChart.html"><li>Data</li></a>
         <a href="./BookChart.html"><li>Helps</li></a>
 	<li style="background-color: rgb(68, 68, 68)"><form method="post" id="user"><input type="text" id="userID" name="user_id" value=""></form></li>
 	<li style="background-color: rgb(68, 68, 68)"><button type="button" id="button" onclick="changeUser()">Login</button></li>
@@ -47,7 +47,7 @@ Content-type: text/html\n\n
 
 <div id="bookInfo" class="main">
 <a href="./BookList.html"><button>戻る</button></a>
-<form action="./cgi/update_book.rb" id="bookNewData" method="get">
+<form action="./cgi/update_book.rb" id="bookNewData" method="post">
 EOS
 
 productResults.each do |productResult|

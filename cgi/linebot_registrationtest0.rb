@@ -7,12 +7,15 @@ require "json"
 require "net/http"
 require "mysql2"
 require "../storage"
+require "date"
 
 puts <<-EOS                                                                                                              
 Content-type: text/html\n\n
 
 linebot
 EOS
+
+today = Date.today
 
 client = Mysql2::Client.new(host: $_dbPath["host"], username: $_dbPath["username"], password: $_dbPath["password"], :encoding => 'utf8', database: $_dbPath["database"][0])
 
@@ -81,9 +84,17 @@ elsif regiCode.include?("書籍:") then
   request.body = reqBody.to_json
   res = http.request(request)
 else
+  bookLists = client.query('select * from test_book1;')
+  bookLists.each do |bookList|
+    if bookList["Name"] == regiCode then
+      
+    end
+  end
+=begin
   reqBody = {"replyToken"=>"#{replyToken}","messages"=>[{"type"=>"text","text"=>"本は読んでますか?"},{"type"=>"text","text"=>"https://mimalab.c.fun.ac.jp/b1017216/Book_Reminder/BookList.html"}]}
   request.body = reqBody.to_json
   res = http.request(request)
+=end
 end
 
 =begin
