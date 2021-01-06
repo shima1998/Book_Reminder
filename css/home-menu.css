@@ -1,11 +1,11 @@
 .menu-box0 {
-    display: block;
-    width: 100%; 
-    height: 20rem;/*親要素が100%って指定だとなぜか下のブロック要素のheight100%が異様に小さくなる*/
+    display: inline-block;
+    width: 30%; 
+    height: 10rem;/*親要素が100%って指定だとなぜか下のブロック要素のheight100%が異様に小さくなる*/
     padding: 1rem;
-    margin-top: 0.5rem; 
+    margin: 0.5rem; 
     border:0.1rem solid lightgray;
-    background-color: white;
+/*    background-color: white;*/
 }
 
 .menu-box0:hover {
@@ -16,9 +16,14 @@
     color: black;
 }
 
+.menu-box0 h2{
+   font-size: 2rem;
+}
+
+
 div.relative-txt{
     position: relative;
-    top: -20rem;
+    top: -10rem;
 }
 
 div.menu-box0 form{
@@ -38,4 +43,31 @@ div.menu-box0 input.submit-book{
     opacity: 0;/*透明度*/
     background-color: #f9c60e00;/*background-colorをしっかりと指定しないとinputタグが小さくなる*/
     z-index: 2;/*透明なボタンが画像より手前に来るようにz-indexを指定*/
+}
+
+
+@media screen and (max-width:350px) {
+    .menu-box0 {
+	display: block;
+	width: 100%; 
+	height: 10rem;
+	padding: 1rem;
+	margin-top: 0.5rem; 
+	border:0.1rem solid lightgray;
+/*	background-color: white;*/
+    }
+}
+
+@media screen and (max-width:450px) {
+
+    .menu-box0 {
+	display: block;
+	width: 100%; 
+	height: 10rem;
+	padding: 1rem;
+	margin: 0.5rem; 
+	border:0.1rem solid lightgray;
+/*	background-color: white;*/
+    }
+
 }

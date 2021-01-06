@@ -73,7 +73,14 @@ function changeUser(){
 	    for (i = 0; i < lists.length; i++) {
 		let list;
 		list = lists[i];
-		html += '<div id="bookList' + String(i+1) + '"class="menu-box0">' + "\n";
+		switch (list.status) {
+		case "0": html += '<div id="bookList' + String(i+1) + '"class="menu-box0" style="background-color: rgb(255, 0, 0, 0.25)">' + "\n"; break;
+		case "1": html += '<div id="bookList' + String(i+1) + '"class="menu-box0" style="background-color: rgb(255, 255, 0, 0.25)">' + "\n"; break;
+		case "2": html += '<div id="bookList' + String(i+1) + '"class="menu-box0" style="background-color: rgb(0, 255, 0, 0.25)">' + "\n"; break;
+		case "3": html += '<div id="bookList' + String(i+1) + '"class="menu-box0" style="background-color: rgb(0, 255, 0, 0.25)">' + "\n"; clear++;break;
+		default: stat = "undefined"; break;
+		};
+		//html += '<div id="bookList' + String(i+1) + '"class="menu-box0">' + "\n";
 		html += '<form action="./BookInfo.rb" method="post">'
 		html += '<input type="submit" class="submit-book" name="book_list" alt="' + list.name + '" value="' + list.ID + '">';
        		html += '<input type="hidden" name="book_user" value="' + userName +'">'
@@ -155,5 +162,5 @@ function bookAdd(){
 	    document.getElementById("bookSave").innerHTML = xmlHttpReq.responseText;
 	};
     };
-changeUser();
+    changeUser();
 };
